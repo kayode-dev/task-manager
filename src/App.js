@@ -1,23 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import AddTask from "./components/addtask";
+import TaskList from "./components/tasklist";
 
 function App() {
+  const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const fetchTask = async () => {
+    setIsLoading(true);
+    const res = await fetch(
+      "https://swmovies-default-rtdb.firebaseio.com/task.json"
+    );
+    const data = await res.json();
+    console.log("data", data);
+
+    const loadedData = [];
+    for (var key in data) {
+      loadedData.push({ id: key, task: data[key].task });
+    }
+
+    console.log(loadedData);
+    setTasks(loadedData);
+    setIsLoading(false);
+  };
+
+  const addTask = async (task) => {
+    const res = await fetch(
+      "https://swmovies-default-rtdb.firebaseio.com/task.json",
+      {
+        method: "post",
+        body: JSON.stringify(task),
+        ContentType: "application/json",
+      }
+    );
+    fetchTask();
+  };
+
+  useEffect(() => {
+    fetchTask();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-gray-800 min-h-screen flex flex-col items-center justify-evenly">
+      <section className="bg-white p-8 h-min w-2/5 flex items-center justify-center rounded">
+        <AddTask onAddTask={addTask} />
+      </section>
+      <section className="bg-white p-8 h-min w-2/5 flex items-center justify-center rounded">
+        {isLoading && <p>Loading....</p>}
+        {!isLoading && tasks.length > 0 && <TaskList Tasks={tasks} />}
+        {!isLoading && tasks.length === 0 && (
+          <p>No haven't added any task yet</p>
+        )}
+      </section>
     </div>
   );
 }
