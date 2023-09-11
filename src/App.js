@@ -44,11 +44,11 @@ function App() {
       <div className="bg-white p-8 h-min lg:w-2/5 md:w-3/5 w-[90%] flex items-center justify-center rounded">
         <AddTask onAddTask={addTask} />
       </div>
-      <div className="bg-white p-8 h-min lg:w-2/5 md:w-3/5 w-[90%] flex justify-evenly rounded">
+      <div className="bg-white p-8 h-min lg:w-2/5 md:w-3/5 w-[90%] max-h-[60vh] overflow-y-scroll rounded">
         {isLoading && <p>Loading....</p>}
         {!isLoading && tasks.length > 0 && <TaskList Tasks={tasks} />}
         {!isLoading && tasks.length === 0 && (
-          <p>No haven't added any task yet</p>
+          <p>You haven't added any task yet</p>
         )}
       </div>
     </div>
