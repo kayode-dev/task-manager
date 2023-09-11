@@ -41,16 +41,16 @@ function App() {
   }, []);
   return (
     <div className="bg-gray-800 min-h-screen flex flex-col items-center justify-evenly">
-      <section className="bg-white p-8 h-min lg:w-2/5 md:w-3/5 w-full flex items-center justify-center rounded">
+      <div className="bg-white p-8 h-min lg:w-2/5 md:w-3/5 w-[90%] flex items-center justify-center rounded">
         <AddTask onAddTask={addTask} />
-      </section>
-      <section className="bg-white p-8 h-min lg:w-2/5 md:w-3/5 w-full flex items-center justify-center rounded">
+      </div>
+      <div className="bg-white p-8 h-min lg:w-2/5 md:w-3/5 w-[90%] flex justify-evenly rounded">
         {isLoading && <p>Loading....</p>}
         {!isLoading && tasks.length > 0 && <TaskList Tasks={tasks} />}
         {!isLoading && tasks.length === 0 && (
           <p>No haven't added any task yet</p>
         )}
-      </section>
+      </div>
     </div>
   );
 }

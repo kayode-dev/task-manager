@@ -13,12 +13,15 @@ const AddTask = (props) => {
     props.onAddTask(task);
   };
   return (
-    <form onSubmit={onSubmitHandler} className="flex gap-5 justify-center items-center">
+    <form
+      onSubmit={onSubmitHandler}
+      className="flex gap-5 justify-center items-center"
+    >
       <input
         type="text"
         placeholder="Create Task"
         ref={taskref}
-        className="border rounded p-2 min-w-full"
+        className="border rounded p-2 max-w-full w-full md:min-w-full"
       />
       <button className="h-10 p-2 rounded text-white bg-purple-900">Add</button>
     </form>
